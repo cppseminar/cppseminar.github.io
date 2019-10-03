@@ -2,4 +2,4 @@
 
 ## Základy
 
-* [Hello world!](/basics/helloe-world.md)
+* [Hello world!](/basics/hello-world.md)
