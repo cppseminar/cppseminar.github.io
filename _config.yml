@@ -1,5 +1,7 @@
 theme: jekyll-theme-slate
 title: "Applikačné programovanie v C++"
+tagline: Nezaradené texty v nikdy nekončiacom vývoji
+url: htttp://cppseminar.github.io
 author:
   name: Peter Koscelanský
   email: koscelansky@live.com
