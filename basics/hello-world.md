@@ -1,6 +1,6 @@
 # Hello world!
 
-Každý správny začiatok programovania ukazuje spôsobakým vypísať pozdrav na konzolu. Cielom je hlavne uistiť sa, že prostredie funguje ako má a vieme spustiť primitívny program. Táto tradícia siaha k začiatkom jazyka C a jeho biblie [The C Programming Language](https://en.wikipedia.org/wiki/The_C_Programming_Language). 
+Každý správny začiatok programovania ukazuje spôsob akým vypísať pozdrav na konzolu. Cielom je hlavne uistiť sa, že prostredie funguje ako má a vieme spustiť primitívny program. Táto tradícia siaha k začiatkom jazyka C a jeho biblie [The C Programming Language](https://en.wikipedia.org/wiki/The_C_Programming_Language). 
 
 ```cpp
 #include <iostream>
