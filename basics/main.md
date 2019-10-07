@@ -2,7 +2,7 @@
 
 ## Najkratší C++ program
 
-Programy v C++ začínajú vždy vo funkcií `main()`, ktorá musí byť v globálnom namespace-i a nemôže byť preťaŽená (teda musí existovať práve jedna). Najkratší platný C++ program vyzerá takto. 
+Programy v C++ začínajú vždy vo funkcií `main()`, ktorá musí byť v globálnom namespace-i a nemôže byť preťažená (teda musí existovať práve jedna). Najkratší platný C++ program vyzerá takto. 
 
 ```cpp
 int main() 
