@@ -10,7 +10,7 @@ int main()
 }
 ```
 
-`main` je jedná funkcia, ktorá síce má navrátovú hodnotu (typu `int`), ale nemusí obsahuvať príkaz `return`. Štandard totiž garantuje, že v takomto prípade bude návratová hodnota `0`. 
+`main` je jedná funkcia, ktorá síce má navrátovú hodnotu (typu `int`), ale nemusí obsahovať príkaz `return`. Štandard totiž garantuje, že v takomto prípade bude návratová hodnota `0`. 
 
 > If control flows off the end of the *compound-statement* of `main`, the effect is equivalent to a `return` with operand 0.
 
