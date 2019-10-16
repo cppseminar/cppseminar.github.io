@@ -140,7 +140,7 @@ Preťažený operátor `>>` slúži na extrakciu dát zo streamu a naplnenie pre
 
 Rovnako ako pri výstupných súboroch aj tu môžeme volať tie isté funkcie na kontrolu chýb s rovnakou sémantikou ako pri výstupných súboroch. Program by bol stále dobre aj bez volania `is_open()`, keďže formátováný vstup `>>` tiež vracia samotný stream a preto v podmienke vlastne voláme operátor pre konverziu na `bool`. 
 
-Keď to spustíme nad súborom, ktorý sme pred chvílou vyrobili, tak zistíme, že namiesto `Hello world!` dostaneme na konzolu iba `Hello`. Dôvod je ten, že pre formátovací vstup `>>` je medzera oddeľovač reťazcov (všetky whitespace sú). 
+Keď to spustíme nad súborom, ktorý sme pred chvílou vyrobili, tak zistíme, že namiesto `Hello world!` dostaneme na konzolu iba `Hello`. Dôvod je ten, že pre formátovací vstup `>>` je medzera oddeľovač reťazcov (všetky whitespace sú).
 
 ## Čítanie po riadkoch
 
@@ -198,3 +198,58 @@ int main()
 ```
 
 Teraz ak sa náhodou nepodarí prečítať celý súbor, tak sa o tom dozvieme. 
+
+## Extrakcia konkrétnych typov
+
+Reálne zo súboru vieme čítať aj iné typy ako iba `std::string`. Operátor `>>` je preťažený aj pre iné typy (hlavne číselné typy a pa ostatných štandardných typov, napríklad `std::bitset`). Použitie je rovnaké ako pri `std::string`, akurát si musíme dávať väčši pozor na kontrolu chýb, keďže formátovanie čísel môže zlyhať oveľa ľahšie ako čítanie znakov. 
+
+```cpp
+std::ifstream f("data.txt");
+
+int i = 0;
+it (f >> i)
+{
+    std::cout << "We extracted " << i << '\n';
+}
+else if (f.bad()) // badbit set on f
+{
+    std::cout << "Unexpected error!\n";
+}
+else if (f.eof()) // eofbit set on f
+{
+    std::cout << "End of file!\n";
+}
+else // failbit set on f
+{
+    std::cout << "Formatting failed, probably not a number\n";
+}
+```
+
+`failbit` bude nastavený aj keď číslo pretečie, takže ak napríklad v súbori síce je číslo, ale jeho hodnota je väčšia ako maximum pre `int`, potom extrakcia zlyhá s nastaveným bitom v stave `failbit`.
+
+## `std::istream` a `std::ostream`
+
+Výhoda `std::ifstream`, respektive `std::ofstream` je, že implementujú rovnaký interface ako `std::cin`, respektíve `std::cout`. Rovnako ho implementujú aj ostatné streamy v štandarde, prípadne ho potom vedia použiť ostatné knižnice. Ak naše funkcia používajú ako parametre nie priamo súborové streamy, alebo štandardné streamy, ale práve referencie na `std::istream` a `std::ostream`, potom sa dajú volať aj so súbormi, aj so štandardným vstupom/výstupom. Napríklad chceme funkcia, ktorá má na vstupe cestu k súboru, pričom ak je prázdna tak bude ako vstup používať štandardný vstup. 
+
+```cpp
+void f(std::istream& input)
+{
+    // here we can process arbitrary istream
+    // files is OK, cin is OK, stringstream is OK
+    int i = 0;
+    while (input >> i) { }
+}
+
+void f(const std::string& path)
+{
+    if (!path.empty())
+    {
+        std::ifstream input(path);
+        f(input);
+    }
+    else
+    {
+        f(std::cin);
+    }
+}
+```
