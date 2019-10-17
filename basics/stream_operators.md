@@ -1,4 +1,4 @@
-# Vlastné stream operátory
+# Vlastné stream operátory `<<` a `>>`
 
 V časti o [textových súboroch](./text_files.md) sme sa dozvedeli ako otvárať súbory, čítať z nich dáta a zapisovať. Takto sa dajú čítať a zapisovať dáta, ktoré majú v štandarde definovaný operátor `<<` a `>>`. Pre vlastné typy vieme tiež pridať túto podporu. 
 
