@@ -2,9 +2,9 @@
 
 V časti o [textových súboroch](./text_files.md) sme sa dozvedeli ako otvárať súbory, čítať z nich dáta a zapisovať. Takto sa dajú čítať a zapisovať dáta, ktoré majú v štandarde definovaný operátor `<<` a `>>`. Pre vlastné typy vieme tiež pridať túto podporu. 
 
-## Vlastný typ TicTacTou
+## Vlastný typ TicTacToe
 
-Najprv si musíme definovať typ, ktorý budeme čítať a zapisovať. Napríklad jednoduchú inštanciu [TicTacTou](https://en.wikipedia.org/wiki/Tic-tac-toe), u nás známou ako piškvorky 3x3. 
+Najprv si musíme definovať typ, ktorý budeme čítať a zapisovať. Napríklad jednoduchú inštanciu [TicTacToe](https://en.wikipedia.org/wiki/Tic-tac-toe), u nás známou ako piškvorky 3x3. 
 
 ```cpp
 enum class State
@@ -14,7 +14,7 @@ enum class State
     Nought, // O
 };
 
-struct TicTacTou
+struct TicTacToe
 {
     State board[3][3] = {};
 };
@@ -27,15 +27,15 @@ Použili sme enum class na definovanie stavu políčka, buď je prázdne, alebo 
 Na podporu výstupu potrebujeme aby kompilátor vedel nájsť správny operátor `<<`. To urobíme tak, že mimo našu triedu deklarujeme nasledujúci operátor. 
 
 ```cpp
-std::ostream& operator<<(std::ostream& os, const TicTacTou& rhs);
+std::ostream& operator<<(std::ostream& os, const TicTacToe& rhs);
 ```
 
 Ľavá strana operátora bude výstupný stream a pravá konštantná referencia na našu triedu. Výstupom potom bude ľavá strana, aby sa dal operátor reťaziť (ak by sme dali výstup ako `void`, tak by nefungovalo `os << t1 << t2`).
 
-Serializovať budeme nasledovne. Deväť znakov za sebou, kde `X` bude krížik, `O` gulôčka a `.` bude prázdne políčko. 
+Serializovať budeme nasledovne. Deväť znakov za sebou, kde `X` bude krížik, `O` krúžok a `.` bude prázdne políčko. 
 
 ```cpp
-std::ostream& operator<<(std::ostream& os, const TicTacTou& rhs)
+std::ostream& operator<<(std::ostream& os, const TicTacToe& rhs)
 {
     for (const auto& i : rhs.board)
     {
@@ -60,7 +60,7 @@ std::ostream& operator<<(std::ostream& os, const TicTacTou& rhs)
 
 ### Pristup k privátnym častiam
 
-Niekedy v rámci operátora `<<` potrebujeme priamy prístup k členským premenným. To vieme zabezpečiť pomocou kľúčovaho slova `friend`. 
+Niekedy v rámci operátora `<<` potrebujeme priamy prístup k členským premenným. To vieme zabezpečiť pomocou kľúčového slova `friend`. 
 
 ```cpp
 class Person
@@ -70,7 +70,7 @@ private:
     std::string m_name;
     uint32_t m_age;
 
-    friend std::ostream& operato<<(std::ostream&, const Person&);
+    friend std::ostream& operator<<(std::ostream&, const Person&);
 };
 
 std::ostream& operator<<(std::ostream& os, const Person& rhs)
@@ -81,16 +81,16 @@ std::ostream& operator<<(std::ostream& os, const Person& rhs)
 
 ## Extrakcia dát zo `std::istream`
 
-Analogicky pre čítanie vlastných typov zo streamu musíme preťažiť operátor `>>`. Ako výstup musí byť referncia stále na vstupný stream aby sa dal aj operátor `>>` reťaziť. Druhý parameter bude referencia na nás typ (nie konštantná, tú by sme moc nepomenili). 
+Analogicky pre čítanie vlastných typov zo streamu musíme preťažiť operátor `>>`. Ako výstup musí byť referencia stále na vstupný stream aby sa dal aj operátor `>>` reťaziť. Druhý parameter bude referencia na náš typ (nie konštantná, tú by sme moc nepomenili). 
 
 ```cpp
-std::istream& operator>>(std::istream& is, TicTacTou& rhs);
+std::istream& operator>>(std::istream& is, TicTacToe& rhs);
 ```
 
-Jediny problém pri získavaní dát je reportovanie chýb. Na to musíme v spravnej chvíly nastaviť `failbit` aby sme použivateľovi funkcie dali vedieť, že je niečo zle. 
+Jediný problém pri získavaní dát je reportovanie chýb. Na to musíme v správnej chvíli nastaviť `failbit` aby sme použivateľovi funkcie dali vedieť, že je niečo zle. 
 
 ```cpp
-std::istream& operator>>(std::istream& is, TicTacTou& rhs)
+std::istream& operator>>(std::istream& is, TicTacToe& rhs)
 {
     for (size_t i = 0; i < 3; ++i)
     {
