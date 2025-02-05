@@ -2,6 +2,7 @@
 
 ## Základy
 
+* [Prostredie](/basics/environment.md)
 * [Hello world!](/basics/hello-world.md)
 * [Funkcia `main` a parametre](/basics/main.md)
 * [Parsovanie reťazcov](/basics/line-parse.md)
