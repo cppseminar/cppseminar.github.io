@@ -40,7 +40,7 @@ int main() {
 
 Po stlačený *F5*, alebo kliknutí na *Local Windows Debugger* by sa mal náš program skompilovať a spustiť. Teraz v nastaveniach projektu pomeníme nasledujúce možnosti.
 
-![Project settings](./environment/)
+![Project settings](./environment/project_settings.png)
 
 C/C++ → Language → Disable Language Extensions na Yes (/Za)
 C/C++ → Language → Conformance Mode uistíme sa, že je Yes (/permissive-)
